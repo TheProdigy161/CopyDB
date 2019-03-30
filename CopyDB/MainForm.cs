@@ -19,13 +19,11 @@ namespace CopyDB
         private readonly List<string> _systemDatabaseNames = new List<string>() { "master", "msdb", "model", "resource", "tempdb" };
 
         private string _backupFolderPath = "";
-        private string _sourceFolderPath = "";
 
         public MainForm()
         {
             InitializeComponent();
             FormControls _controls = new FormControls(this);
-
             picBx_loadingicon.Visible = false;
             btn_cancel.Visible = false;
             btn_start.Enabled = false;
@@ -45,6 +43,7 @@ namespace CopyDB
         //Starts the process of exporting and importing.
         private async void btn_start_Click(object sender, EventArgs e)
         {
+            FormControls.ToggleStartButton(false);
             List<string> databaseNames = new List<string>();
 
             FormControls.ClearOutputToApp();
@@ -64,6 +63,7 @@ namespace CopyDB
                 await _dbImporter.ImportDatabases(databaseNames, importConnection);
 
             FormControls.ToggleAllElements(true);
+            FormControls.ToggleStartButton(true);
         }
 
         #region Export Click Events
@@ -72,7 +72,8 @@ namespace CopyDB
         private async void btn_export_connect_Click(object sender, EventArgs e)
         {
             FormControls.EnableLoadingIcon();
-
+            FormControls.ToggleAllElements(false);
+            
             string exportConnectionString = _dbExporter.GetExportConnectionString();
 
             if (await Utilities.TestConnection(exportConnectionString, true))
@@ -168,6 +169,7 @@ namespace CopyDB
         //Handles when the server name to export from is changed.
         private void txtbx_export_server_name_TextChanged(object sender, EventArgs e)
         {
+            FormControls.ToggleStartButton(false);
             FormControls.ClearCheckedDatabases();
         }
 
@@ -175,6 +177,7 @@ namespace CopyDB
         private void btn_cancel_Click(object sender, EventArgs e)
         {
             SQLPackage.EndProcess();
+            FormControls.ToggleStartButton(true);
         }
 
         #endregion
@@ -186,7 +189,7 @@ namespace CopyDB
         {
             FormControls.EnableLoadingIcon();
 
-            if (!await Utilities.TestConnection(_dbImporter.GetImportConnectionString()))
+            if (!await Utilities.TestConnection(_dbImporter.GetImportConnectionString(), false, true))
                 return;
 
             Config.AddUpdateSetting("Import_ServerType", cmbbx_import_server_type.SelectedItem.ToString());
@@ -198,14 +201,14 @@ namespace CopyDB
         //Used to select the import folder containing the database bacpacs.
         private void btn_import_browse_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog browser = new FolderBrowserDialog();
+            //    FolderBrowserDialog browser = new FolderBrowserDialog();
 
-            if (browser.ShowDialog() == DialogResult.OK)
-            {
-                txtbx_export_output_folder.Text = browser.SelectedPath;
-                Config.AddUpdateSetting("Import_SourceFolder", browser.SelectedPath);
-                _sourceFolderPath = $"{browser.SelectedPath}\\";
-            }
+            //    if (browser.ShowDialog() == DialogResult.OK)
+            //    {
+            //        txtbx_export_output_folder.Text = browser.SelectedPath;
+            //        Config.AddUpdateSetting("Import_SourceFolder", browser.SelectedPath);
+            //        _sourceFolderPath = $"{browser.SelectedPath}\\";
+            //    }
         }
 
         //Used to handle when the import server type dropdown is changed.

@@ -11,7 +11,6 @@ namespace CopyDB.Classes
 {
     class DatabaseImporter
     {
-        private FormControls _controls;
         public static string _backupFolderPath;
 
         public DatabaseImporter() { }
@@ -24,6 +23,7 @@ namespace CopyDB.Classes
         //Used to import the backups from the specified backup folder.
         public async Task ImportDatabases(List<string> databases, string connectionString)
         {
+            string folderPath = $"{_backupFolderPath}{ DateTime.Now.ToString("dd-MM-yyyy")}\\";
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -40,7 +40,7 @@ namespace CopyDB.Classes
                         SqlCommand cmd = new SqlCommand(sqlCommand, conn);
                         cmd.ExecuteNonQuery();
 
-                        await SQLPackage.Run("Import", databases[i], connectionString, _backupFolderPath);
+                        await SQLPackage.Run("Import", databases[i], connectionString, folderPath);
                     }
                 }
             }
@@ -58,9 +58,9 @@ namespace CopyDB.Classes
             string connectionString = "";
 
             if (FormControls.form.cmbbx_import_server_type.SelectedItem.ToString() == "Microsoft SQL Server (Local)")
-                connectionString = $"Data Source = {FormControls.form.txtbx_import_server_name.Text}; Integrated Security = SSPI;";
+                connectionString = $"Data Source = {FormControls.form.txtbx_import_server_name.Text}; Integrated Security = SSPI; Connection Timeout = 5;";
             else
-                connectionString = $"Data Source = {FormControls.form.txtbx_import_server_name.Text}; User ID = {FormControls.form.txtbx_import_username.Text}; Password = {FormControls.form.txtbx_import_password.Text};";
+                connectionString = $"Data Source = {FormControls.form.txtbx_import_server_name.Text}; User ID = {FormControls.form.txtbx_import_username.Text}; Password = {FormControls.form.txtbx_import_password.Text}; Connection Timeout = 5;";
 
             return connectionString;
         }

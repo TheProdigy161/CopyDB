@@ -25,7 +25,7 @@ namespace CopyDB.Classes
                 return "";
             }
         }
-
+        
         //Adds a setting to the app.config file if it does not exist.  If it does exist, then it is updated.
         public static void AddUpdateSetting(string key, string value)
         {

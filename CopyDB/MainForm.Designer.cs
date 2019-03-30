@@ -74,7 +74,7 @@
             // btn_start
             // 
             this.btn_start.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_start.Location = new System.Drawing.Point(397, 547);
+            this.btn_start.Location = new System.Drawing.Point(397, 624);
             this.btn_start.Name = "btn_start";
             this.btn_start.Size = new System.Drawing.Size(75, 25);
             this.btn_start.TabIndex = 8;
@@ -86,7 +86,7 @@
             // 
             this.groupBox3.Controls.Add(this.txtbx_output);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(12, 378);
+            this.groupBox3.Location = new System.Drawing.Point(12, 455);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(460, 163);
             this.groupBox3.TabIndex = 13;
@@ -156,6 +156,7 @@
             this.btn_import_browse.TabIndex = 18;
             this.btn_import_browse.Text = "Browse";
             this.btn_import_browse.UseVisualStyleBackColor = true;
+            this.btn_import_browse.Visible = false;
             this.btn_import_browse.Click += new System.EventHandler(this.btn_import_browse_Click);
             // 
             // label5
@@ -167,6 +168,7 @@
             this.label5.Size = new System.Drawing.Size(92, 17);
             this.label5.TabIndex = 19;
             this.label5.Text = "Source Folder:";
+            this.label5.Visible = false;
             // 
             // txtbx_import_source_folder
             // 
@@ -176,6 +178,7 @@
             this.txtbx_import_source_folder.Name = "txtbx_import_source_folder";
             this.txtbx_import_source_folder.Size = new System.Drawing.Size(255, 25);
             this.txtbx_import_source_folder.TabIndex = 17;
+            this.txtbx_import_source_folder.Visible = false;
             // 
             // btn_import_connect
             // 
@@ -259,7 +262,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 30);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(452, 326);
+            this.tabPage1.Size = new System.Drawing.Size(452, 403);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Export";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -294,7 +297,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(9, 146);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(437, 174);
+            this.groupBox2.Size = new System.Drawing.Size(437, 251);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Select Databases";
@@ -332,7 +335,7 @@
             this.checkedListBox_databases.Name = "checkedListBox_databases";
             this.checkedListBox_databases.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.checkedListBox_databases.ScrollAlwaysVisible = true;
-            this.checkedListBox_databases.Size = new System.Drawing.Size(425, 84);
+            this.checkedListBox_databases.Size = new System.Drawing.Size(425, 164);
             this.checkedListBox_databases.TabIndex = 7;
             this.checkedListBox_databases.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_databases_SelectedIndexChanged);
             // 
@@ -419,14 +422,14 @@
             this.tbcntrl_tabs.Location = new System.Drawing.Point(12, 12);
             this.tbcntrl_tabs.Name = "tbcntrl_tabs";
             this.tbcntrl_tabs.SelectedIndex = 0;
-            this.tbcntrl_tabs.Size = new System.Drawing.Size(460, 360);
+            this.tbcntrl_tabs.Size = new System.Drawing.Size(460, 437);
             this.tbcntrl_tabs.TabIndex = 8;
             // 
             // picBx_loadingicon
             // 
             this.picBx_loadingicon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picBx_loadingicon.Image = ((System.Drawing.Image)(resources.GetObject("picBx_loadingicon.Image")));
-            this.picBx_loadingicon.Location = new System.Drawing.Point(335, 547);
+            this.picBx_loadingicon.Location = new System.Drawing.Point(335, 624);
             this.picBx_loadingicon.Name = "picBx_loadingicon";
             this.picBx_loadingicon.Size = new System.Drawing.Size(25, 25);
             this.picBx_loadingicon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -437,7 +440,7 @@
             // 
             this.btn_cancel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_cancel.BackgroundImage")));
             this.btn_cancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_cancel.Location = new System.Drawing.Point(366, 547);
+            this.btn_cancel.Location = new System.Drawing.Point(366, 624);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(25, 25);
             this.btn_cancel.TabIndex = 14;
@@ -449,15 +452,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(484, 581);
+            this.ClientSize = new System.Drawing.Size(484, 661);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.picBx_loadingicon);
             this.Controls.Add(this.tbcntrl_tabs);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btn_start);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximumSize = new System.Drawing.Size(500, 620);
-            this.MinimumSize = new System.Drawing.Size(500, 620);
+            this.MaximumSize = new System.Drawing.Size(500, 700);
+            this.MinimumSize = new System.Drawing.Size(0, 700);
             this.Name = "MainForm";
             this.Text = "CopyDB";
             this.groupBox3.ResumeLayout(false);

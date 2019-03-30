@@ -57,12 +57,14 @@ namespace CopyDB.Classes
         //Used to export the database backup from LIVE to a local folder.
         public async Task<bool> ExportDatabases(List<string> databases, string connectionString)
         {
+            string folderPath = $"{_backupFolderPath}{DateTime.Now.ToString("dd-MM-yyyy")}\\";
             FormControls.ToggleAllElements(false);
-            Directory.CreateDirectory(_backupFolderPath);
-            
+            Directory.CreateDirectory(folderPath);
+
+
             for (int i = 0; i < databases.Count; i++)
             {
-                if (!await SQLPackage.Run("Export", databases[i], connectionString, _backupFolderPath))
+                if (!await SQLPackage.Run("Export", databases[i], connectionString, folderPath))
                 {
                     FormControls.ClearOutputToApp();
                     return false;
@@ -78,7 +80,7 @@ namespace CopyDB.Classes
         //Gets the combined connection string for importing.
         public string GetExportConnectionString()
         {
-            string connectionString = $"Data Source = {FormControls.form.txtbx_export_server_name.Text}; User ID = {FormControls.form.txtbx_export_username.Text}; Password = {FormControls.form.txtbx_export_password.Text}";
+            string connectionString = $"Data Source = {FormControls.form.txtbx_export_server_name.Text}; User ID = {FormControls.form.txtbx_export_username.Text}; Password = {FormControls.form.txtbx_export_password.Text}; Connection Timeout = 5;";
 
             return connectionString;
         }

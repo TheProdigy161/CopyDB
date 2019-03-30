@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Management;
 
 namespace CopyDB.Classes
 {
@@ -40,7 +38,7 @@ namespace CopyDB.Classes
                 procStartInfo.RedirectStandardOutput = true;
                 procStartInfo.RedirectStandardInput = true;
                 procStartInfo.UseShellExecute = false;
-                procStartInfo.CreateNoWindow = true;
+                procStartInfo.CreateNoWindow = true; //makes the window visible when false.
 
                 using (process = new Process())
                 {
@@ -48,6 +46,8 @@ namespace CopyDB.Classes
                     {
                         process.StartInfo = procStartInfo;
                         process.Start();
+
+                        FormControls.OutputToApp(process.Id.ToString());
 
                         while (!process.StandardOutput.EndOfStream)
                         {
@@ -63,7 +63,12 @@ namespace CopyDB.Classes
                         string result = process.StandardOutput.ReadToEnd();
                         Console.WriteLine(result);
 
-                        return true;
+                        //process.Dispose();
+
+                        if (process.ExitCode == 0)
+                            return true;
+                        else
+                            return false;
                     }
                     catch (Exception e)
                     {
@@ -80,11 +85,12 @@ namespace CopyDB.Classes
             //Contained within a try/catch incase the user presses the cancel button too many times.
             try
             {
-                using (StreamWriter sw = process.StandardInput)
+                Process[] sqlP = Process.GetProcessesByName("SqlPackage");
+
+                foreach (Process p in sqlP)
                 {
-                    sw.WriteLine("^C");
-                    process.Close();
-                    process.Dispose();
+                    p.Kill();
+                    p.Dispose();
                 }
             }
             catch (Exception e)

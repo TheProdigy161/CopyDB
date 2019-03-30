@@ -33,7 +33,9 @@ namespace CopyDB.Classes
         {
             //Import Settings
             form.cmbbx_import_server_type.Items.AddRange(form._serverTypeNames.ToArray());
-            form.cmbbx_import_server_type.SelectedIndex = form._serverTypeNames.FindIndex(x => x == Config.ReadSetting("Import_ServerType")); ;
+            int index = form._serverTypeNames.FindIndex(x => x == Config.ReadSetting("Import_ServerType"));
+
+            form.cmbbx_import_server_type.SelectedIndex =  index >= 0 ? index : 0;
             form.txtbx_import_server_name.Text = Config.ReadSetting("Import_ServerName");
             form.txtbx_import_username.Text = Config.ReadSetting("Import_Username");
             form.txtbx_import_password.Text = Config.ReadSetting("Import_Password");
@@ -107,10 +109,16 @@ namespace CopyDB.Classes
             form.userDatabaseNames.Clear();
         }
 
+        //Toggles all elements while the application is processing.
         public static void ToggleAllElements(bool val)
         {
             EnableLoadingIcon(!val);
             form.tbcntrl_tabs.Enabled = val;
+        }
+
+        //Toggles the start button.
+        public static void ToggleStartButton(bool val)
+        {
             form.btn_start.Enabled = val;
         }
     }
